@@ -1,0 +1,84 @@
+﻿@using OfficeFlow.Application.Users.Commands.CreateUsers
+
+@model CreateUsersCommand
+
+<h1>Utwórz nowego użytkownika</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Users/Create" method="post">
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="FirstName">Imię</label>
+                <input class="form-control" type="text" asp-for="FirstName" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="SecondName">Drugie imię</label>
+                <input class="form-control" type="text" asp-for="SecondName" />
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="LastName">Nazwisko</label>
+                <input class="form-control" type="text" asp-for="LastName" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="PhoneNumber">Numer telefonu</label>
+                <input class="form-control" type="text" asp-for="PhoneNumber" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Email">E-mail</label>
+                <input class="form-control" type="text" asp-for="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="DateOfBirth">Data urodzenia</label>
+                <input class="form-control" type="date" asp-for="DateOfBirth" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="CreatedBy">Utworzył</label>
+                <input class="form-control" type="number" asp-for="CreatedBy" />
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Country">Kraj</label>
+                <input class="form-control" type="text" asp-for="Country" />
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="City">Miasto</label>
+                <input class="form-control" type="text" asp-for="City" />
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="PostalCode">Kod pocztowy</label>
+                <input class="form-control" type="text" asp-for="PostalCode" />
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Street">Ulica</label>
+                <input class="form-control" type="text" asp-for="Street" />
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="HouseNumber">Numer budynku</label>
+                <input class="form-control" type="text" asp-for="HouseNumber" />
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="ApartmentNumber">Numer lokalu</label>
+                <input class="form-control" type="text" asp-for="ApartmentNumber" />
+            </div>
+            <div class="form-group m-3">
+                <td>
+                    <a class="btn btn-outline-warning" asp-action="Index">Wróć do listy</a>
+                </td>
+                <td>
+                    <input class="btn btn-outline-success" type="submit" value="Utwórz" />
+                </td>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,63 @@
+﻿@using OfficeFlow.Application.EFilesDocuments.Commands.CreateEFilesDocuments
+
+@model CreateEFilesDocumentsCommand
+
+<h1>Dodaj dokument</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="/EFilesDocuments/Create" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="EFilePublicId" />
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Category">Kategoria</label>
+                <input class="form-control" type="number" asp-for="Category" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Type">Typ</label>
+                <input class="form-control" type="number" asp-for="Type" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Date">Data dokumentu</label>
+                <input class="form-control" type="date" asp-for="Date" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="DateFrom">Data obowiązywania od</label>
+                <input class="form-control" type="date" asp-for="DateFrom" />
+                <span asp-validation-for="DateFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="DateTo">Data obowiązywania do</label>
+                <input class="form-control" type="date" asp-for="DateTo" />
+                <span asp-validation-for="DateTo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Notes">Notatki</label>
+                <input class="form-control" type="text" asp-for="Notes" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="DocumentContent">Dodaj plik</label>
+                <input class="form-control" type="file" asp-for="DocumentContent" />
+                <span asp-validation-for="DocumentContent" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <td>
+                    <a class="btn btn-outline-warning" asp-action="Index">Wróć do listy</a>
+                </td>
+                <td>
+                    <input class="btn btn-outline-success" type="submit" value="Utwórz" />
+                </td>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

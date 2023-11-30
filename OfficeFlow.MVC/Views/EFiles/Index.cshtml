@@ -1,0 +1,60 @@
+﻿@model IEnumerable<OfficeFlow.Application.EFiles.Models.ListModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>E-teczki</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Utwórz</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FolderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StorageLocation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FolderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StorageLocation)
+            </td>
+                <td>
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Details" asp-route-publicId="@item.PublicId">Szczegóły</a>
+                </td>
+                <td>
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Edit" asp-route-publicId="@item.PublicId">Edytuj</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

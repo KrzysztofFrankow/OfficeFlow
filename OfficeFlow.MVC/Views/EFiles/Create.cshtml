@@ -1,0 +1,47 @@
+﻿@using OfficeFlow.Application.EFiles.Commands.CreateEFiles
+
+@model CreateEFilesCommand
+
+<h1>Utwórz nową e-teczkę</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="/EFiles/Create" method="post">
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="UserId">Pracownik</label>
+                <input class="form-control" type="number" asp-for="UserId" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="FolderNumber">Numer folderu</label>
+                <input class="form-control" type="text" asp-for="FolderNumber" />
+                <span asp-validation-for="FolderNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="StorageLocation">Miejsce przechowywania</label>
+                <input class="form-control" type="text" asp-for="StorageLocation" />
+                <span asp-validation-for="StorageLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Notes">Notatki</label>
+                <input class="form-control" type="text" asp-for="Notes" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <td>
+                    <a class="btn btn-outline-warning" asp-action="Index">Wróć do listy</a>
+                </td>
+                <td>
+                    <input class="btn btn-outline-success" type="submit" value="Utwórz" />
+                </td>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

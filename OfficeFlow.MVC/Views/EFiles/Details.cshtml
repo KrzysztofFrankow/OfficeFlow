@@ -1,0 +1,105 @@
+﻿@model OfficeFlow.Application.EFiles.Models.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.UserFirstName @Model.UserLastName</h1>
+
+<div>
+    <h4>Szczegóły e-teczki</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FolderNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FolderNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StorageLocation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StorageLocation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+    </dl>
+</div>
+<td>
+    <a class="btn btn-outline-warning" asp-action="Index">Wróć do listy</a>
+</td>
+<td>
+    <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Edit" asp-route-publicId="@Model.PublicId">Edytuj</a>
+</td>
+
+<br />
+<br />
+
+<h3>Dokumenty</h3>
+<p>
+    <a asp-controller="EFilesDocuments" asp-action="Create" asp-route-publicId="@Model.PublicId" class="btn btn-outline-primary">Dodaj dokument</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Kategoria
+            </th>
+            <th>
+                Typ
+            </th>
+            <th>
+                Data
+            </th>
+            <th>
+                Data obowiązywania od
+            </th>
+            <th>
+                Data obowiązywania do
+            </th>
+            <th>
+                Plik
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Documents != null)
+        {
+            @foreach (var item in Model.Documents)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateFrom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentName)
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Details" asp-route-publicId="@item.Id">Szczegóły</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Edit" asp-route-publicId="@item.Id">Edytuj</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
