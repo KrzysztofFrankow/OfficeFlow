@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using OfficeFlow.Application.Users.Commands.EditUsers;
-using OfficeFlow.Application;
 using OfficeFlow.Application.EFiles.Commands.EditEFiles;
+using OfficeFlow.Application.EFilesDocuments.Commands.EditEFilesDocuments;
 
 namespace OfficeFlow.Application.AutoMapper
 {
@@ -63,8 +63,30 @@ namespace OfficeFlow.Application.AutoMapper
                 .ForMember(e => e.DocumentName, o => o.MapFrom(s => s.DocumentContent != null ? s.DocumentContent.FileName : null))
                 .ForMember(e => e.DocumentContent, o => o.Ignore());
 
+            CreateMap<EFilesDocuments.Models.EditModel, Domain.Entities.EFileDocuments>()
+                .ForMember(e => e.DocumentContentType, o => o.Ignore())
+                .ForMember(e => e.DocumentName, o => o.Ignore())
+                .ForMember(e => e.DocumentContent, o => o.Ignore());
+
+            CreateMap<EFilesDocuments.Models.DetailsModel, EditEFilesDocumentsCommand>()
+                .ForMember(e => e.Date, o => o.MapFrom(s => Convert.ToDateTime(s.Date)))
+                .ForMember(e => e.DateFrom, o => o.MapFrom(s => Convert.ToDateTime(s.DateFrom)))
+                .ForMember(e => e.DateTo, o => o.MapFrom(s => Convert.ToDateTime(s.DateTo)));
+
             CreateMap<Domain.Entities.EFileDocuments, EFilesDocuments.Models.ListModel>()
-                .ForMember(e => e.DocumentName, o => o.MapFrom(s => s.DocumentName));
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date.ToString("dd-MM-yyyy")))
+                .ForMember(dest => dest.DateFrom, opt => opt.MapFrom(src => src.DateFrom.HasValue ? src.DateFrom.Value.ToString("dd-MM-yyyy") : string.Empty))
+                .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo.HasValue ? src.DateTo.Value.ToString("dd-MM-yyyy") : string.Empty));
+
+            CreateMap<Domain.Entities.EFileDocuments, EFilesDocuments.Models.DetailsModel>()
+                .ForMember(e => e.PublicId, o => o.MapFrom(s => s.EFile != null ? s.EFile.PublicId : Guid.Empty))
+                .ForMember(e => e.UserFirstName, o => o.MapFrom(s => s.EFile != null && s.EFile.User != null ? s.EFile.User.FirstName : null))
+                .ForMember(e => e.UserLastName, o => o.MapFrom(s => s.EFile != null && s.EFile.User != null ? s.EFile.User.LastName : null))
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date.ToString("dd-MM-yyyy")))
+                .ForMember(dest => dest.DateFrom, opt => opt.MapFrom(src => src.DateFrom.HasValue ? src.DateFrom.Value.ToString("dd-MM-yyyy") : string.Empty))
+                .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo.HasValue ? src.DateTo.Value.ToString("dd-MM-yyyy") : string.Empty));
+
+            CreateMap<Domain.Entities.EFileDocuments, EFilesDocuments.Models.DocumentModel>();
         }
     }
 }

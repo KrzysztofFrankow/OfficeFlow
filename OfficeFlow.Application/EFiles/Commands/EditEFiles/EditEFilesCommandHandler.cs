@@ -14,10 +14,10 @@ namespace OfficeFlow.Application.EFiles.Commands.EditEFiles
 
         public async Task<Unit> Handle(EditEFilesCommand request, CancellationToken cancellationToken)
         {
-            var user = await _officeFlowRepository.GetEFileByPublicId(request.PublicId);
-            user.FolderNumber = request.FolderNumber;
-            user.StorageLocation = request.StorageLocation;
-            user.Notes = request.Notes;
+            var eFile = await _officeFlowRepository.GetEFileByPublicId(request.PublicId);
+            eFile.FolderNumber = request.FolderNumber;
+            eFile.StorageLocation = request.StorageLocation;
+            eFile.Notes = request.Notes;
 
             await _officeFlowRepository.Commit();
 

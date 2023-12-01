@@ -1,0 +1,69 @@
+﻿@model OfficeFlow.Application.EFilesDocuments.Commands.EditEFilesDocuments.EditEFilesDocumentsCommand
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>@Model.UserFirstName @Model.UserLastName</h1>
+
+<h4>Edycja dokumentu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-publicId="@Model.PublicId" asp-route-id="@Model.Id" asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group m-3">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <label asp-for="DateFrom" class="control-label"></label>
+                <input asp-for="DateFrom" class="form-control" />
+                <span asp-validation-for="DateFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <label asp-for="DateTo" class="control-label"></label>
+                <input asp-for="DateTo" class="form-control" />
+                <span asp-validation-for="DateTo" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <label class="control-label" asp-for="DocumentContent">Dodaj plik</label>
+                <input class="form-control" type="file" asp-for="DocumentContent" />
+                <span asp-validation-for="DocumentContent" class="text-danger"></span>
+                <dd class="col-sm-10">
+                    <a href="@Url.Action("DownloadFile", "EFilesDocuments", new { id = Model.Id })">
+                        @Model.DocumentName
+                    </a>
+                </dd>
+            </div>
+            <div class="form-group m-3">
+                <td>
+                    <a class="btn btn-outline-warning" asp-controller="EFiles" asp-action="Details" asp-route-publicId="@Model.PublicId">Wróć do listy</a>
+                </td>
+                <td>
+                    <input type="submit" value="Zapisz" class="btn btn-outline-success" />
+                </td>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

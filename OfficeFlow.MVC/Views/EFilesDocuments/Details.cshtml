@@ -1,0 +1,64 @@
+﻿@model OfficeFlow.Application.EFilesDocuments.Models.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.UserFirstName @Model.UserLastName</h1>
+
+<div>
+    <h4>Szczegóły dokumentu</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateFrom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateFrom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateTo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateTo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DocumentName)
+        </dt>
+        <dd class="col-sm-10">
+            <a href="@Url.Action("DownloadFile", "EFilesDocuments", new { id = Model.Id })">
+                @Model.DocumentName
+            </a>
+        </dd>
+    </dl>
+</div>
+<td>
+    <a class="btn btn-outline-warning" asp-controller="EFiles" asp-action="Details" asp-route-publicId="@Model.PublicId">Wróć do listy</a>
+</td>
+<td>
+    <a class="btn btn-outline-dark" asp-area="" asp-controller="EFilesDocuments" asp-action="Edit" asp-route-publicId="@Model.PublicId" asp-route-id="@Model.Id">Edytuj</a>
+</td>

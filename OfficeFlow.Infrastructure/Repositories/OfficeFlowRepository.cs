@@ -56,5 +56,15 @@ namespace OfficeFlow.Infrastructure.Repositories
             _dbContext.Add(eFileDocuments);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<EFileDocuments> GetEFileDocumentById(int id)
+        {
+            return await _dbContext.EFileDocuments.Include(i => i.EFile).ThenInclude(i => i.User).FirstAsync(w => w.Id == id);
+        }
+
+        public async Task<EFileDocuments> GetDocumentById(int id)
+        {
+            return await _dbContext.EFileDocuments.FirstAsync(w => w.Id == id);
+        }
     }
 }

@@ -45,17 +45,17 @@ public class EFilesController : Controller
     [Route("EFiles/{publicId}/Details")]
     public async Task<IActionResult> Details(Guid publicId)
     {
-        var user = await _mediator.Send(new GetEFileByPublicIdQuery(publicId));
+        var eFile = await _mediator.Send(new GetEFileByPublicIdQuery(publicId));
 
-        return View(user);
+        return View(eFile);
     }
 
     [Route("EFiles/{publicId}/Edit")]
     public async Task<IActionResult> Edit(Guid publicId)
     {
-        var user = await _mediator.Send(new GetEFileByPublicIdQuery(publicId));
+        var eFile = await _mediator.Send(new GetEFileByPublicIdQuery(publicId));
 
-        var model = _mapper.Map<EditEFilesCommand>(user);
+        var model = _mapper.Map<EditEFilesCommand>(eFile);
 
         return View(model);
     }

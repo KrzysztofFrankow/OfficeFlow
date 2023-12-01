@@ -11,6 +11,8 @@ namespace OfficeFlow.Domain.Interfaces
         Task<IEnumerable<EFiles>> GetAllEFiles();
         Task<Users> GetUserByPublicId(Guid publicId);
         Task<EFiles> GetEFileByPublicId(Guid publicId);
+        Task<EFileDocuments> GetEFileDocumentById(int id);
+        Task<EFileDocuments> GetDocumentById(int id);
         Task Commit();
     }
 }

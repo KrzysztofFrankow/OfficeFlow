@@ -93,10 +93,10 @@
                         @Html.DisplayFor(modelItem => item.DocumentName)
                     </td>
                     <td>
-                        <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Details" asp-route-publicId="@item.Id">Szczegóły</a>
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="EFilesDocuments" asp-action="Details" asp-route-publicId="@Model.PublicId" asp-route-id="@item.Id">Szczegóły</a>
                     </td>
                     <td>
-                        <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Edit" asp-route-publicId="@item.Id">Edytuj</a>
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="EFilesDocuments" asp-action="Edit" asp-route-publicId="@Model.PublicId" asp-route-id="@item.Id">Edytuj</a>
                     </td>
                 </tr>
             }
