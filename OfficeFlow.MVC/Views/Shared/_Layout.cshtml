@@ -1,6 +1,10 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     var action = ViewContext.RouteData.Values["Action"]!.ToString();
     var controller = ViewContext.RouteData.Values["Controller"]!.ToString();
+    var isAdmin = User.IsInRole("Admin");
+    var isManager = User.IsInRole("Manager");
+    var givenName = User.FindFirst(ClaimTypes.GivenName)?.Value ?? "Gość";
 }
 
 ﻿
@@ -25,13 +29,28 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (isAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark @(controller == "Users" ? "active" : "")" asp-area="" asp-controller="Users" asp-action="Index">Pracownicy</a>
+                            </li>
+                        }
+                        @if (isAdmin || isManager)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark @(controller == "EFiles" ? "active" : "")" asp-area="" asp-controller="EFiles" asp-action="Index">E-teczki</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark @(controller == "Users" && (action == "Create" || action == "Index" || action == "Edit" || action == "Details") ? "active" : "")" asp-area="" asp-controller="Users" asp-action="Index">Pracownicy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark @(controller == "EFiles" && (action == "Create" || action == "Index" || action == "Edit" || action == "Details") ? "active" : "")" asp-area="" asp-controller="EFiles" asp-action="Index">E-teczki</a>
+                            <a class="nav-link text-dark @(controller == "Absences" ? "active" : "")" asp-area="" asp-controller="Absences" asp-action="Index">Nieobecności</a>
                         </li>
                     </ul>
+                    <span class="navbar-text">
+                        @givenName
+                    </span>
+                    <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="btn btn-outline-danger">Wyloguj</button>
+                    </form>
                 </div>
             </div>
         </nav>

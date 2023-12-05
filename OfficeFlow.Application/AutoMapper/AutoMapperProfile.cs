@@ -13,6 +13,7 @@ namespace OfficeFlow.Application.AutoMapper
 
             CreateMap<Users.Models.CreateModel, Domain.Entities.Users>()
                 .ForMember(e => e.PublicId, o => o.Ignore())
+                .ForMember(e => e.PasswordHash, o => o.Ignore())
                 .ForMember(e => e.Address, o => o.MapFrom(s => new Domain.Entities.UsersAddress()
                 {
                     Country = s.Country,
@@ -31,6 +32,8 @@ namespace OfficeFlow.Application.AutoMapper
                 .ForMember(e => e.ApartmentNumber, o => o.MapFrom(s => s.Address.ApartmentNumber));
 
             CreateMap<Domain.Entities.Users, Users.Models.DetailsModel>()
+                .ForMember(e => e.Role, o => o.MapFrom(s => s.Role!.Name))
+                .ForMember(e => e.Password, o => o.Ignore())
                 .ForMember(e => e.Country, o => o.MapFrom(s => s.Address.Country))
                 .ForMember(e => e.City, o => o.MapFrom(s => s.Address.City))
                 .ForMember(e => e.PostalCode, o => o.MapFrom(s => s.Address.PostalCode))
@@ -87,6 +90,12 @@ namespace OfficeFlow.Application.AutoMapper
                 .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo.HasValue ? src.DateTo.Value.ToString("dd-MM-yyyy") : string.Empty));
 
             CreateMap<Domain.Entities.EFileDocuments, EFilesDocuments.Models.DocumentModel>();
+
+            //Absences
+
+            CreateMap<Absences.Models.CreateModel, Domain.Entities.Absences>();
+
+            CreateMap<Domain.Entities.Absences, Absences.Models.ListModel>();
         }
     }
 }

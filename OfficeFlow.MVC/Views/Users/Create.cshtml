@@ -23,24 +23,35 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label class="control-label" asp-for="PhoneNumber">Numer telefonu</label>
-                <input class="form-control" type="text" asp-for="PhoneNumber" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
                 <label class="control-label" asp-for="Email">E-mail</label>
                 <input class="form-control" type="text" asp-for="Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
+                <label class="control-label" asp-for="Password">Hasło</label>
+                <input class="form-control" type="password" asp-for="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="ConfirmPassword">Potwierdź hasło</label>
+                <input class="form-control" type="password" asp-for="ConfirmPassword" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="RoleId">Rola</label>
+                <select asp-for="RoleId" asp-items="ViewBag.Roles" class="form-control"></select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="PhoneNumber">Numer telefonu</label>
+                <input class="form-control" type="text" asp-for="PhoneNumber" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>       
+            <div class="form-group mb-3">
                 <label class="control-label" asp-for="DateOfBirth">Data urodzenia</label>
                 <input class="form-control" type="date" asp-for="DateOfBirth" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label class="control-label" asp-for="CreatedBy">Utworzył</label>
-                <input class="form-control" type="number" asp-for="CreatedBy" />
-            </div>
+            </div>           
             <div class="form-group mb-3">
                 <label class="control-label" asp-for="Country">Kraj</label>
                 <input class="form-control" type="text" asp-for="Country" />

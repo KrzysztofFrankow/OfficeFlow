@@ -5,6 +5,7 @@ using OfficeFlow.Application.EFiles.Commands.CreateEFiles;
 using OfficeFlow.Application.EFiles.Queries.GetAllEFiles;
 using OfficeFlow.Application.EFiles.Queries.GetEFileByPublicId;
 using OfficeFlow.Application.EFiles.Commands.EditEFiles;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OfficeFlow.MVC.Controllers.EFiles;
 
@@ -19,12 +20,14 @@ public class EFilesController : Controller
         _mapper = mapper;
     }
 
+    [Authorize(Roles = "Manager, Admin")]
     public IActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
+    [Authorize(Roles = "Manager, Admin")]
     public async Task<IActionResult> Create(CreateEFilesCommand command)
     {
         if (!ModelState.IsValid)
@@ -36,12 +39,14 @@ public class EFilesController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [Authorize(Roles = "Manager, Admin")]
     public async Task<IActionResult> Index()
     {
         var list = await _mediator.Send(new GetAllEFilesQuery());
         return View(list);
     }
 
+    [Authorize(Roles = "Manager, Admin")]
     [Route("EFiles/{publicId}/Details")]
     public async Task<IActionResult> Details(Guid publicId)
     {
@@ -50,6 +55,7 @@ public class EFilesController : Controller
         return View(eFile);
     }
 
+    [Authorize(Roles = "Manager, Admin")]
     [Route("EFiles/{publicId}/Edit")]
     public async Task<IActionResult> Edit(Guid publicId)
     {
@@ -61,6 +67,7 @@ public class EFilesController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Manager, Admin")]
     [Route("EFiles/{publicId}/Edit")]
     public async Task<IActionResult> Edit(Guid publicId, EditEFilesCommand command)
     {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OfficeFlow.Application.EFilesDocuments.Commands.CreateEFilesDocuments;
 using OfficeFlow.Application.EFilesDocuments.Commands.EditEFilesDocuments;
@@ -19,12 +20,14 @@ namespace OfficeFlow.MVC.Controllers.EFiles
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         public IActionResult Create(Guid publicId)
         {
             return View(new CreateEFilesDocumentsCommand(publicId));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager, Admin")]
         public async Task<IActionResult> Create(CreateEFilesDocumentsCommand command)
         {
             if (!ModelState.IsValid)
@@ -36,6 +39,7 @@ namespace OfficeFlow.MVC.Controllers.EFiles
             return RedirectToAction("Details", "EFiles", new { publicId = command.EFilePublicId });
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         [Route("EFiles/{publicId}/EFileDocuments/{id}/Details")]
         public async Task<IActionResult> Details(Guid publicId, int id)
         {
@@ -44,6 +48,7 @@ namespace OfficeFlow.MVC.Controllers.EFiles
             return View(eFileDocument);
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         [Route("EFiles/{publicId}/EFileDocuments/{id}/Edit")]
         public async Task<IActionResult> Edit(Guid publicId, int id)
         {
@@ -55,6 +60,7 @@ namespace OfficeFlow.MVC.Controllers.EFiles
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager, Admin")]
         [Route("EFiles/{publicId}/EFileDocuments/{id}/Edit")]
         public async Task<IActionResult> Edit(Guid publicId, int id, EditEFilesDocumentsCommand command)
         {
@@ -67,6 +73,7 @@ namespace OfficeFlow.MVC.Controllers.EFiles
             return RedirectToAction("Details", "EFiles", new { publicId = command.PublicId });
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         public async Task<IActionResult> DownloadFile(int id)
         {
             var document = await _mediator.Send(new GetDocumentByIdQuery(id));

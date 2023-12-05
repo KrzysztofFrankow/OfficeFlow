@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OfficeFlow.Application.Enums;
 using OfficeFlow.Domain.Entities;
 using OfficeFlow.Domain.Interfaces;
 using OfficeFlow.Infrastructure.Persistence;
@@ -31,9 +32,20 @@ namespace OfficeFlow.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task Create(Absences absences)
+        {
+            _dbContext.Add(absences);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Users>> GetAllUsers()
         {
             return await _dbContext.Users.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Absences>> GetAbsencesToAccept()
+        {
+            return await _dbContext.Absences.Include(i => i.User).Where(w => w.Status == (int)AbsenceStatus.InProgress).ToListAsync();
         }
 
         public async Task<IEnumerable<EFiles>> GetAllEFiles()
@@ -43,7 +55,7 @@ namespace OfficeFlow.Infrastructure.Repositories
 
         public async Task<Users> GetUserByPublicId(Guid publicId)
         {
-            return await _dbContext.Users.FirstAsync(w => w.PublicId == publicId);
+            return await _dbContext.Users.Include(i => i.Role).FirstAsync(w => w.PublicId == publicId);
         }
 
         public async Task<EFiles> GetEFileByPublicId(Guid publicId)
@@ -59,12 +71,31 @@ namespace OfficeFlow.Infrastructure.Repositories
 
         public async Task<EFileDocuments> GetEFileDocumentById(int id)
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return await _dbContext.EFileDocuments.Include(i => i.EFile).ThenInclude(i => i.User).FirstAsync(w => w.Id == id);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
 
         public async Task<EFileDocuments> GetDocumentById(int id)
         {
             return await _dbContext.EFileDocuments.FirstAsync(w => w.Id == id);
+        }
+
+        public bool CheckEmail(string email)
+        {
+            return _dbContext.Users.Any(u => u.Email == email);
+        }
+
+        public async Task<Users> GetUserForLogin(string email)
+        {
+#pragma warning disable CS8603 // Possible null reference return.
+            return await _dbContext.Users.Include(i => i.Role).FirstOrDefaultAsync(w => w.Email == email);
+#pragma warning restore CS8603 // Possible null reference return.
+        }
+
+        public async Task<IEnumerable<Role>> GetAllRoles()
+        {
+            return await _dbContext.Roles.ToListAsync();
         }
     }
 }

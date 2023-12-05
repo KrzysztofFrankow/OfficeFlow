@@ -22,6 +22,44 @@ namespace OfficeFlow.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("OfficeFlow.Domain.Entities.Absences", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PublicId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("To")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Absences");
+                });
+
             modelBuilder.Entity("OfficeFlow.Domain.Entities.EFileDocuments", b =>
                 {
                     b.Property<int>("Id")
@@ -100,6 +138,23 @@ namespace OfficeFlow.Infrastructure.Migrations
                     b.ToTable("EFiles");
                 });
 
+            modelBuilder.Entity("OfficeFlow.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("OfficeFlow.Domain.Entities.Users", b =>
                 {
                     b.Property<int>("Id")
@@ -108,9 +163,6 @@ namespace OfficeFlow.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -118,6 +170,7 @@ namespace OfficeFlow.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -128,18 +181,38 @@ namespace OfficeFlow.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("PublicId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("OfficeFlow.Domain.Entities.Absences", b =>
+                {
+                    b.HasOne("OfficeFlow.Domain.Entities.Users", "User")
+                        .WithMany("Absences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("OfficeFlow.Domain.Entities.EFileDocuments", b =>
@@ -166,6 +239,12 @@ namespace OfficeFlow.Infrastructure.Migrations
 
             modelBuilder.Entity("OfficeFlow.Domain.Entities.Users", b =>
                 {
+                    b.HasOne("OfficeFlow.Domain.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("OfficeFlow.Domain.Entities.UsersAddress", "Address", b1 =>
                         {
                             b1.Property<int>("UsersId")
@@ -199,6 +278,8 @@ namespace OfficeFlow.Infrastructure.Migrations
 
                     b.Navigation("Address")
                         .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("OfficeFlow.Domain.Entities.EFiles", b =>
@@ -208,6 +289,8 @@ namespace OfficeFlow.Infrastructure.Migrations
 
             modelBuilder.Entity("OfficeFlow.Domain.Entities.Users", b =>
                 {
+                    b.Navigation("Absences");
+
                     b.Navigation("EFile");
                 });
 #pragma warning restore 612, 618
