@@ -1,0 +1,60 @@
+﻿@model IEnumerable<OfficeFlow.Application.Users.Models.ListModel>
+
+@{
+    ViewData["Title"] = "Limits";
+}
+
+<h1>Limity</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Imię
+            </th>
+            <th>
+                Nazwisko
+            </th>
+            <th>
+                Miasto
+            </th>
+            <th>
+                Ulica
+            </th>
+            <th>
+                Numer budynku
+            </th>
+            <th>
+                Numer mieszkania
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HouseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApartmentNumber)
+            </td>
+                <td style="text-align: right">
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Absences" asp-action="UserLimits" asp-route-publicId="@item.PublicId">Szczegóły</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

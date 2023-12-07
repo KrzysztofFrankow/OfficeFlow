@@ -1,0 +1,39 @@
+﻿@model IEnumerable<OfficeFlow.Application.Dictionaries.Models.ListModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Słowniki</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Utwórz</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Typ
+            </th>
+            <th>
+                Nazwa
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+                <td style="text-align: right">
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Dictionaries" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

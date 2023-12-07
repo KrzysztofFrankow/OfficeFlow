@@ -19,6 +19,8 @@ namespace OfficeFlow.Infrastructure.Persistence
         public DbSet<Domain.Entities.EFileDocuments> EFileDocuments { get; set; }
         public DbSet<Domain.Entities.Role> Roles { get; set; }
         public DbSet<Domain.Entities.Absences> Absences { get; set; }
+        public DbSet<Domain.Entities.Dictionaries> Dictionaries { get; set; }
+        public DbSet<Domain.Entities.Limits> Limits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,11 +48,13 @@ namespace OfficeFlow.Infrastructure.Persistence
 
                 entity.HasOne(e => e.User)
                       .WithOne(u => u.EFile)
-                      .HasForeignKey<Domain.Entities.EFiles>(e => e.UserId);
+                      .HasForeignKey<Domain.Entities.EFiles>(e => e.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasMany(e => e.EFileDocuments)
                       .WithOne(d => d.EFile)
-                      .HasForeignKey(d => d.EFileId);
+                      .HasForeignKey(d => d.EFileId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<EFileDocuments>(entity =>
@@ -65,7 +69,19 @@ namespace OfficeFlow.Infrastructure.Persistence
 
                 entity.HasOne(e => e.User)
                       .WithMany(u => u.Absences)
-                      .HasForeignKey(e => e.UserId);
+                      .HasForeignKey(e => e.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Domain.Entities.Limits>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.PublicId).HasDefaultValueSql("NEWID()");
+
+                entity.HasOne(e => e.User)
+                      .WithMany(u => u.Limits)
+                      .HasForeignKey(e => e.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
 

@@ -3,7 +3,7 @@ using OfficeFlow.Application.Absences.Models;
 
 namespace OfficeFlow.Application.Absences.Queries.GetAbsencesToAccept
 {
-    public class GetAbsencesToAcceptQuery : IRequest<IEnumerable<ListModel>>
+    public class GetAbsencesToAcceptQuery : IRequest<List<ListModel>>
     {
     }
 }

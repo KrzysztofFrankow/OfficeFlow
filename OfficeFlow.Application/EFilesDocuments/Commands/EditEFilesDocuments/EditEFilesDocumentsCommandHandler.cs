@@ -21,6 +21,7 @@ namespace OfficeFlow.Application.EFilesDocuments.Commands.EditEFilesDocuments
             eFileDocument.DateFrom = request.DateFrom;
             eFileDocument.DateTo = request.DateTo;
             eFileDocument.Notes = request.Notes;
+            eFileDocument.DateModified = DateTime.UtcNow;
 
             if(request.DocumentContent != null)
             {

@@ -2,6 +2,7 @@
 {
     public class CreateModel
     {
+        public Guid PublicId { get; set; }
         public int UserId { get; set; }
         public int Type { get; set; }
         public DateTime From { get; set; }

@@ -25,9 +25,6 @@
                 Miasto
             </th>
             <th>
-                Kod pocztowy
-            </th>
-            <th>
                 Ulica
             </th>
             <th>
@@ -55,9 +52,6 @@
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Street)
             </td>
             <td>
@@ -66,11 +60,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ApartmentNumber)
             </td>
-            <td>
+            <td style="text-align: right">
                 <a class="btn btn-outline-dark" asp-area="" asp-controller="Users" asp-action="Details" asp-route-publicId="@item.PublicId">Szczegóły</a>
-            </td>
-            <td>
                 <a class="btn btn-outline-dark" asp-area="" asp-controller="Users" asp-action="Edit" asp-route-publicId="@item.PublicId">Edytuj</a>
+                <a class="btn btn-outline-dark" asp-area="" asp-controller="Users" asp-action="Delete" asp-route-publicId="@item.PublicId">Usuń</a>
             </td>
         </tr>
 }

@@ -11,19 +11,19 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FolderNumber)
+            Numer folderu
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FolderNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StorageLocation)
+            Miejsce przechowywania
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StorageLocation)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Notes)
+            Notatki
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Notes)
@@ -75,10 +75,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Category)
+                        @Html.DisplayFor(modelItem => item.CategoryName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Type)
+                        @Html.DisplayFor(modelItem => item.TypeName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Date)
@@ -92,11 +92,10 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DocumentName)
                     </td>
-                    <td>
+                    <td style="text-align: right">
                         <a class="btn btn-outline-dark" asp-area="" asp-controller="EFilesDocuments" asp-action="Details" asp-route-publicId="@Model.PublicId" asp-route-id="@item.Id">Szczegóły</a>
-                    </td>
-                    <td>
                         <a class="btn btn-outline-dark" asp-area="" asp-controller="EFilesDocuments" asp-action="Edit" asp-route-publicId="@Model.PublicId" asp-route-id="@item.Id">Edytuj</a>
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="EFilesDocuments" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
                     </td>
                 </tr>
             }

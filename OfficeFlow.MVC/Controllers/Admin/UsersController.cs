@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OfficeFlow.Application.Roles.Queries.GetAllRoles;
 using OfficeFlow.Application.Users.Commands.CreateUsers;
+using OfficeFlow.Application.Users.Commands.DeleteUsers;
 using OfficeFlow.Application.Users.Commands.EditUsers;
-using OfficeFlow.Application.Users.Models;
 using OfficeFlow.Application.Users.Queries.GetAllUsers;
 using OfficeFlow.Application.Users.Queries.GetUserByPublicId;
 
@@ -44,8 +44,15 @@ public class UsersController : Controller
     {
         var roles = await _mediator.Send(new GetAllRolesQuery());
 
-        var roleSelectList = new SelectList(roles, "Id", "Name");
-        ViewBag.Roles = roleSelectList;
+        var roleSelectListItems = roles.Select(role => new SelectListItem
+        {
+            Text = role.Name,
+            Value = role.Id.ToString()
+        })
+        .ToList();
+
+        roleSelectListItems.Insert(0, new SelectListItem { Text = "Wybierz rolę...", Value = "" });
+        ViewBag.Roles = new SelectList(roleSelectListItems, "Value", "Text");
 
         return View();
     }
@@ -74,8 +81,15 @@ public class UsersController : Controller
 
         var roles = await _mediator.Send(new GetAllRolesQuery());
 
-        var roleSelectList = new SelectList(roles, "Id", "Name");
-        ViewBag.Roles = roleSelectList;
+        var roleSelectListItems = roles.Select(role => new SelectListItem
+        {
+            Text = role.Name,
+            Value = role.Id.ToString()
+        })
+        .ToList();
+
+        roleSelectListItems.Insert(0, new SelectListItem { Text = "Wybierz rolę...", Value = "" });
+        ViewBag.Roles = new SelectList(roleSelectListItems, "Value", "Text");
 
         return View(model);
     }
@@ -92,5 +106,17 @@ public class UsersController : Controller
 
         await _mediator.Send(command);
         return RedirectToAction(nameof(Index));
+    }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(Guid publicId)
+    {
+        await _mediator.Send(new DeleteUsersCommand(publicId));
+
+        var referer = Request.Headers["Referer"].ToString();
+
+        if (!string.IsNullOrEmpty(referer)) return Redirect(referer);
+
+        return RedirectToAction("Index", "Absences");
     }
 }

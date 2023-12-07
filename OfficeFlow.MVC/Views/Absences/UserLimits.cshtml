@@ -1,0 +1,50 @@
+﻿@model OfficeFlow.Application.Absences.Models.UserLimitsModel
+
+@{
+    ViewData["Title"] = "UserLimits";
+}
+
+<h1>@Model.UserName</h1>
+
+<td>
+    <a class="btn btn-outline-warning" asp-action="Index">Wróć</a>
+</td>
+<br />
+
+<h3>Limity pracownika</h3>
+<p>
+    <a asp-controller="Absences" asp-action="CreateLimit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Dodaj limit</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Typ
+            </th>
+            <th>
+                Liczba dni
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Limits != null)
+        {
+            @foreach (var item in Model.Limits)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DaysLimit)
+                    </td>
+                    <td style="text-align: right">
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Absences" asp-action="EditLimit" asp-route-publicId="@item.PublicId">Edytuj</a>
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Absences" asp-action="DeleteLimit" asp-route-publicId="@item.PublicId">Usuń</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

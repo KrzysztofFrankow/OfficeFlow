@@ -10,15 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Account/Login"; // Login path
-        options.AccessDeniedPath = "/Account/AccessDenied"; // Access denied path
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(2880); // Expire time
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(2880);
     });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add(new AuthorizeFilter());
+    options.ModelValidatorProviders.Clear();
 });
 
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -52,21 +53,16 @@ app.MapControllerRoute(
 
 app.MapGet("/", context =>
 {
-    // Check if the user is authenticated
     if (context.User.Identity?.IsAuthenticated == true)
     {
-        // Redirect to the Home/Index if authenticated
         context.Response.Redirect("/Home/Index");
     }
     else
     {
-        // Redirect to the Account/Login if not authenticated
         context.Response.Redirect("/Account/Login");
     }
 
-    return Task.CompletedTask; // Dodajemy to, aby zwróciæ Task
+    return Task.CompletedTask;
 });
-
-
 
 app.Run();

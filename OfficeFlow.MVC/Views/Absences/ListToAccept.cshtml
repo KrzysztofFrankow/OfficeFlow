@@ -5,21 +5,27 @@
 }
 
 <h1>Do akceptacji</h1>
+<p>
+    <a class="btn btn-outline-warning" asp-action="Index">Wróć</a>
+</p>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                Pracownik
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                Typ nieobecności
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.From)
+                Data od
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.To)
+                Data do
+            </th>
+            <th>
+                Data dodania
             </th>
             <th></th>
         </tr>
@@ -28,10 +34,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type)
+                @Html.DisplayFor(modelItem => item.TypeName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.From)
@@ -39,11 +45,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.To)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td style="text-align: right">
+                    <a class="btn btn-outline-success" asp-area="" asp-controller="Absences" asp-action="Accept" asp-route-publicId="@item.PublicId">Akceptuj</a>
+                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Absences" asp-action="Reject" asp-route-publicId="@item.PublicId">Odrzuć</a>
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Absences" asp-action="Details" asp-route-publicId="@item.PublicId">Szczegóły</a>
+                </td>
         </tr>
 }
     </tbody>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using OfficeFlow.Application.Roles.Queries.GetRoleById;
 using OfficeFlow.Application.Users.Models;
 using OfficeFlow.Domain.Interfaces;
 
@@ -11,12 +12,14 @@ namespace OfficeFlow.Application.Users.Queries.LogInUser
         private readonly IOfficeFlowRepository _officeFlowRepository;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<Domain.Entities.Users> _passwordHasher;
+        private readonly IMediator _mediator;
 
-        public LogInUserQueryHandler(IOfficeFlowRepository officeFlowRepository, IMapper mapper, IPasswordHasher<Domain.Entities.Users> passwordHasher)
+        public LogInUserQueryHandler(IOfficeFlowRepository officeFlowRepository, IMapper mapper, IPasswordHasher<Domain.Entities.Users> passwordHasher, IMediator mediator)
         {
             _officeFlowRepository = officeFlowRepository;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
+            _mediator = mediator;
         }
         public async Task<DetailsModel> Handle(LogInUserQuery request, CancellationToken cancellationToken)
         {
@@ -28,7 +31,11 @@ namespace OfficeFlow.Application.Users.Queries.LogInUser
 
             if (result == PasswordVerificationResult.Failed) return null!;
 
-            return _mapper.Map<DetailsModel>(user);
+            var mappedUser = _mapper.Map<DetailsModel>(user);
+
+            mappedUser.Role = (await _mediator.Send(new GetRoleByIdQuery(mappedUser.RoleId))).Name;
+
+            return mappedUser;
         }
     }
 }

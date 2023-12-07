@@ -30,6 +30,12 @@ namespace OfficeFlow.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("From")
                         .HasColumnType("datetime2");
 
@@ -60,6 +66,26 @@ namespace OfficeFlow.Infrastructure.Migrations
                     b.ToTable("Absences");
                 });
 
+            modelBuilder.Entity("OfficeFlow.Domain.Entities.Dictionaries", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Dictionaries");
+                });
+
             modelBuilder.Entity("OfficeFlow.Domain.Entities.EFileDocuments", b =>
                 {
                     b.Property<int>("Id")
@@ -74,7 +100,13 @@ namespace OfficeFlow.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DateFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateTo")
@@ -113,6 +145,12 @@ namespace OfficeFlow.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FolderNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -136,6 +174,35 @@ namespace OfficeFlow.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("EFiles");
+                });
+
+            modelBuilder.Entity("OfficeFlow.Domain.Entities.Limits", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DaysLimit")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("PublicId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Limits");
                 });
 
             modelBuilder.Entity("OfficeFlow.Domain.Entities.Role", b =>
@@ -237,6 +304,17 @@ namespace OfficeFlow.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("OfficeFlow.Domain.Entities.Limits", b =>
+                {
+                    b.HasOne("OfficeFlow.Domain.Entities.Users", "User")
+                        .WithMany("Limits")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("OfficeFlow.Domain.Entities.Users", b =>
                 {
                     b.HasOne("OfficeFlow.Domain.Entities.Role", "Role")
@@ -292,6 +370,8 @@ namespace OfficeFlow.Infrastructure.Migrations
                     b.Navigation("Absences");
 
                     b.Navigation("EFile");
+
+                    b.Navigation("Limits");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,73 @@
+﻿@using OfficeFlow.Application.Enums
+
+@model OfficeFlow.Application.Absences.Models.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.UserName</h1>
+
+<div>
+    <h4>Szczegóły wniosku</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Typ wniosku
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TypeName)
+        </dd>
+        <dt class = "col-sm-2">
+            Data od
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.From)
+        </dd>
+        <dt class = "col-sm-2">
+            Data do
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.To)
+        </dd>
+        <dt class = "col-sm-2">
+            Notatka
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+        <dt class = "col-sm-2">
+            Data dodania
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+        <dt class = "col-sm-2">
+            Status
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StatusName)
+        </dd>
+    </dl>
+</div>
+<td>
+    <a class="btn btn-outline-warning" asp-controller="Absences" asp-action="Index" asp-route-publicId="@Model.PublicId">Wróć</a>
+</td>
+@if (Model.Status == (int)AbsenceStatus.Accepted || Model.Status == (int)AbsenceStatus.Rejected)
+{
+    <td>
+        <a class="btn btn-outline-warning" asp-area="" asp-controller="Absences" asp-action="BackToInProgress" asp-route-publicId="@Model.PublicId">Przywróć do akceptacji</a>
+    </td>
+}
+@if (Model.Status == (int)AbsenceStatus.InProgress)
+{
+    <td>
+        <a class="btn btn-outline-success" asp-area="" asp-controller="Absences" asp-action="Accept" asp-route-publicId="@Model.PublicId">Akceptuj</a>
+    </td>
+    <td>
+        <a class="btn btn-outline-danger" asp-area="" asp-controller="Absences" asp-action="Reject" asp-route-publicId="@Model.PublicId">Odrzuć</a>
+    </td>
+    <td>
+        <a class="btn btn-outline-dark" asp-area="" asp-controller="Absences" asp-action="Edit" asp-route-publicId="@Model.PublicId">Edytuj</a>
+    </td>
+}

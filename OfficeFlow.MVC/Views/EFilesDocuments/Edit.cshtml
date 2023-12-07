@@ -12,37 +12,37 @@
     <div class="col-md-4">
         <form asp-route-publicId="@Model.PublicId" asp-route-id="@Model.Id" asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group m-3">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Category">Kategoria</label>
+                <select asp-for="Category" asp-items="ViewBag.Categories" class="form-control"></select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
-            <div class="form-group m-3">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Type">Typ</label>
+                <select asp-for="Type" asp-items="ViewBag.Types" class="form-control"></select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
-            <div class="form-group m-3">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Date">Data dokumentu</label>
+                <input class="form-control" type="date" asp-for="Date" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div class="form-group m-3">
-                <label asp-for="DateFrom" class="control-label"></label>
-                <input asp-for="DateFrom" class="form-control" />
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="DateFrom">Data obowiązywania od</label>
+                <input class="form-control" type="date" asp-for="DateFrom" />
                 <span asp-validation-for="DateFrom" class="text-danger"></span>
             </div>
-            <div class="form-group m-3">
-                <label asp-for="DateTo" class="control-label"></label>
-                <input asp-for="DateTo" class="form-control" />
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="DateTo">Data obowiązywania do</label>
+                <input class="form-control" type="date" asp-for="DateTo" />
                 <span asp-validation-for="DateTo" class="text-danger"></span>
             </div>
-            <div class="form-group m-3">
-                <label asp-for="Notes" class="control-label"></label>
-                <input asp-for="Notes" class="form-control" />
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Notes">Notatki</label>
+                <input class="form-control" type="text" asp-for="Notes" />
                 <span asp-validation-for="Notes" class="text-danger"></span>
             </div>
-            <div class="form-group m-3">
+            <div class="form-group mb-3">
                 <label class="control-label" asp-for="DocumentContent">Dodaj plik</label>
                 <input class="form-control" type="file" asp-for="DocumentContent" />
                 <span asp-validation-for="DocumentContent" class="text-danger"></span>
@@ -52,7 +52,7 @@
                     </a>
                 </dd>
             </div>
-            <div class="form-group m-3">
+            <div class="form-group mb-3">
                 <td>
                     <a class="btn btn-outline-warning" asp-controller="EFiles" asp-action="Details" asp-route-publicId="@Model.PublicId">Wróć do listy</a>
                 </td>

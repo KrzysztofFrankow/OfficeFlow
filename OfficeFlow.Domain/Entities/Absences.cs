@@ -11,5 +11,7 @@
         public DateTime To { get; set; }
         public string? Notes { get; set; }
         public int Status { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public DateTime? DateModified { get; set; }
     }
 }

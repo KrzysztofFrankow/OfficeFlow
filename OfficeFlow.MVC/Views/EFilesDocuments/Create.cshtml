@@ -11,12 +11,12 @@
             <input type="hidden" asp-for="EFilePublicId" />
             <div class="form-group mb-3">
                 <label class="control-label" asp-for="Category">Kategoria</label>
-                <input class="form-control" type="number" asp-for="Category" />
+                <select asp-for="Category" asp-items="ViewBag.Categories" class="form-control"></select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label class="control-label" asp-for="Type">Typ</label>
-                <input class="form-control" type="number" asp-for="Type" />
+                <label class="control-label" asp-for="Type">Kategoria</label>
+                <select asp-for="Type" asp-items="ViewBag.Types" class="form-control"></select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">

@@ -1,14 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using OfficeFlow.Application.Enums;
-using OfficeFlow.Application.Users.Commands.CreateUsers;
 using OfficeFlow.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OfficeFlow.Application.Absences.Commands.CreateAbsences
 {

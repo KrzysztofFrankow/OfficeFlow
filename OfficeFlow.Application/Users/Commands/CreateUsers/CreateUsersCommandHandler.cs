@@ -22,7 +22,7 @@ namespace OfficeFlow.Application.Users.Commands.CreateUsers
         {
             var user = _mapper.Map<Domain.Entities.Users>(request);
 
-            user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);
+            user.PasswordHash = _passwordHasher.HashPassword(user, request.Password!);
             await _officeFlowRepository.Create(user);
 
             return Unit.Value;

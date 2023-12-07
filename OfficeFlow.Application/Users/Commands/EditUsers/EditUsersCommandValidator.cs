@@ -23,14 +23,7 @@ namespace OfficeFlow.Application.Users.Commands.EditUsers
 
             RuleFor(c => c.Email)
                 .NotEmpty().WithMessage("Adres e-mail jest wymagany.")
-                .EmailAddress().When(c => !string.IsNullOrEmpty(c.Email), ApplyConditionTo.CurrentValidator).WithMessage("Email jest nieprawidłowy.")
-                .Custom((value, context) =>
-                {
-                    if (officeFlowRepository.CheckEmail(value))
-                    {
-                        context.AddFailure("Email", "Podany adres e-mail jest już w użyciu.");
-                    }
-                });
+                .EmailAddress().When(c => !string.IsNullOrEmpty(c.Email), ApplyConditionTo.CurrentValidator).WithMessage("Email jest nieprawidłowy.");
 
             RuleFor(c => c.PhoneNumber)
                 .Matches(@"^\+?[1-9]\d{1,14}$").WithMessage("Numer telefonu jest nieprawidłowy.");

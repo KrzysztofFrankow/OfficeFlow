@@ -10,5 +10,7 @@
         public string? StorageLocation { get; set; }
         public string? Notes { get; set; }
         public ICollection<EFileDocuments>? EFileDocuments { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public DateTime? DateModified { get; set; }
     }
 }

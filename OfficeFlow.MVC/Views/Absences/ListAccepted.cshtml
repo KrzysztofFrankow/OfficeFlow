@@ -1,0 +1,59 @@
+﻿@model IEnumerable<OfficeFlow.Application.Absences.Models.ListModel>
+
+@{
+    ViewData["Title"] = "ListAccepted";
+}
+
+<h1>Zaakceptowane</h1>
+<p>
+    <a class="btn btn-outline-warning" asp-action="Index">Wróć</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Pracownik
+            </th>
+            <th>
+                Typ nieobecności
+            </th>
+            <th>
+                Data od
+            </th>
+            <th>
+                Data do
+            </th>
+            <th>
+                Data dodania
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.From)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td style="text-align: right">
+                    <a class="btn btn-outline-warning" asp-area="" asp-controller="Absences" asp-action="BackToInProgress" asp-route-publicId="@item.PublicId">Przywróć do akceptacji</a>
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Absences" asp-action="Details" asp-route-publicId="@item.PublicId">Szczegóły</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

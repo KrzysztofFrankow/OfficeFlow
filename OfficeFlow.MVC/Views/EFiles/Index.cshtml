@@ -13,19 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserFirstName)
+                Imię
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserLastName)
+                Nazwisko
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                Numer folderu
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FolderNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StorageLocation)
+                Miejsce przechowywania
             </th>
             <th></th>
         </tr>
@@ -40,19 +37,15 @@
                 @Html.DisplayFor(modelItem => item.UserLastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.FolderNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StorageLocation)
             </td>
-                <td>
+                <td style ="text-align: right">
                     <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Details" asp-route-publicId="@item.PublicId">Szczegóły</a>
-                </td>
-                <td>
                     <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Edit" asp-route-publicId="@item.PublicId">Edytuj</a>
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="EFiles" asp-action="Delete" asp-route-publicId="@item.PublicId">Usuń</a>
                 </td>
         </tr>
 }

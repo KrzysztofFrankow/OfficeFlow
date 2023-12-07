@@ -1,0 +1,42 @@
+﻿@using OfficeFlow.Application.Absences.Commands.CreateLimit
+
+@model CreateLimitCommand
+
+<h1>Utwórz limit</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Absences/CreateLimit" method="post">
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="UserId">Pracownik</label>
+                <select asp-for="UserId" asp-items="ViewBag.Users" class="form-control"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="Type">Typ nieobecności</label>
+                <select asp-for="Type" asp-items="ViewBag.Types" class="form-control"></select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label" asp-for="DaysLimit">Limit dniowy</label>
+                <input class="form-control" type="number" asp-for="DaysLimit" />
+                <span asp-validation-for="DaysLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group m-3">
+                <td>
+                    <a class="btn btn-outline-warning" asp-action="Index">Wróć</a>
+                </td>
+                <td>
+                    <input class="btn btn-outline-success" type="submit" value="Utwórz" />
+                </td>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

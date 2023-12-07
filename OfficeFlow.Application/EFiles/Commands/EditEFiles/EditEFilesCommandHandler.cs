@@ -18,6 +18,7 @@ namespace OfficeFlow.Application.EFiles.Commands.EditEFiles
             eFile.FolderNumber = request.FolderNumber;
             eFile.StorageLocation = request.StorageLocation;
             eFile.Notes = request.Notes;
+            eFile.DateModified = DateTime.UtcNow;
 
             await _officeFlowRepository.Commit();
 

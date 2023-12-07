@@ -14,5 +14,7 @@
         public byte[]? DocumentContent { get; set; }
         public string? DocumentContentType { get; set; }
         public string? DocumentName { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public DateTime? DateModified { get; set; }
     }
 }

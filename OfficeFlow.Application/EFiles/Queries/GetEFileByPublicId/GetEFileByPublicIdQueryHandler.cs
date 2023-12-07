@@ -18,7 +18,18 @@ namespace OfficeFlow.Application.EFiles.Queries.GetEFileByPublicId
         public async Task<DetailsModel> Handle(GetEFileByPublicIdQuery request, CancellationToken cancellationToken)
         {
             var user = await _officeFlowRepository.GetEFileByPublicId(request.PublicId);
-            return _mapper.Map<DetailsModel>(user);
+            var mappedUser = _mapper.Map<DetailsModel>(user);
+
+            if(mappedUser.Documents != null)
+            {
+                for (int i = 0; i < mappedUser.Documents.Count; i++)
+                {
+                    mappedUser.Documents[i].CategoryName = (await _officeFlowRepository.GetDictionaryById(mappedUser.Documents[i].Category)).Name;
+                    mappedUser.Documents[i].TypeName = (await _officeFlowRepository.GetDictionaryById(mappedUser.Documents[i].Type)).Name;
+                }
+            }
+
+            return mappedUser;
         }
     }
 }

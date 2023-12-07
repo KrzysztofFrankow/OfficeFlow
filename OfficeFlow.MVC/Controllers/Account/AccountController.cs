@@ -38,6 +38,7 @@ namespace OfficeFlow.MVC.Controllers.Account
                 // Utwórz listę deklaracji tożsamości (claims)
                 var claims = new List<Claim>
                     {
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.Email),
                         new Claim(ClaimTypes.GivenName, user.FirstName + " " + user.LastName),
                         new Claim(ClaimTypes.Role, user.Role)

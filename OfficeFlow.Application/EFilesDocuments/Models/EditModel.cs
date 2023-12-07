@@ -6,8 +6,8 @@ namespace OfficeFlow.Application.EFilesDocuments.Models
     {
         public int Id { get; set; }
         public string PublicId { get; set; } = default!;
-        public string UserFirstName { get; set; } = default!;
-        public string UserLastName { get; set; } = default!;       
+        public string? UserFirstName { get; set; }
+        public string? UserLastName { get; set; }     
         public int Category { get; set; }
         public int Type { get; set; }
         public DateTime Date { get; set; }

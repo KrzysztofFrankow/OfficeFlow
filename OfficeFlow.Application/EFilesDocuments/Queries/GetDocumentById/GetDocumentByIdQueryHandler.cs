@@ -17,8 +17,8 @@ namespace OfficeFlow.Application.EFilesDocuments.Queries.GetDocumentById
         }
         public async Task<DocumentModel> Handle(GetDocumentByIdQuery request, CancellationToken cancellationToken)
         {
-            var eFile = await _officeFlowRepository.GetDocumentById(request.Id);
-            return _mapper.Map<DocumentModel>(eFile);
+            var document = await _officeFlowRepository.GetDocumentById(request.Id);
+            return _mapper.Map<DocumentModel>(document);
         }
     }
 }

@@ -1,12 +1,36 @@
 ﻿@{
     ViewData["Title"] = "Index";
+    var isAdmin = User.IsInRole("Admin");
+    var isManager = User.IsInRole("Manager");
+    var isUser = User.IsInRole("User");
 }
 
 <h1>Nieobecności</h1>
 
-<td>
-    <a asp-action="Create" class="btn btn-outline-primary">Dodaj wniosek</a>
-</td>
-<td>
-    <a asp-action="ListToAccept" class="btn btn-outline-primary">Wnioski do akceptacji</a>
-</td>
+@if(isAdmin || isManager || isUser)
+{
+    <td>
+        <a asp-action="Create" class="btn btn-outline-primary">Dodaj wniosek</a>
+    </td>
+}
+@if (isAdmin || isManager)
+{
+    <td>
+        <a asp-action="ListToAccept" class="btn btn-outline-primary">Wnioski do akceptacji</a>
+    </td>
+    <td>
+        <a asp-action="ListAccepted" class="btn btn-outline-primary">Wnioski zaakceptowane</a>
+    </td>
+    <td>
+        <a asp-action="ListRejected" class="btn btn-outline-primary">Wnioski odrzucone</a>
+    </td>
+    <td>
+        <a asp-action="Limits" class="btn btn-outline-primary">Limity</a>
+    </td>
+}
+@if (isAdmin || isManager || isUser)
+{
+    <td>
+        <a asp-action="MyList" class="btn btn-outline-primary">Moje wnioski</a>
+    </td>
+}
